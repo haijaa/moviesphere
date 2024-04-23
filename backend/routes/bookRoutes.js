@@ -1,4 +1,4 @@
-const express = require('express');
+/* const express = require('express');
 const router = express.Router();
 const bookController = require('../controllers/bookController');
 
@@ -9,4 +9,4 @@ router.put('/api/books', bookController.updateBook);
 router.delete('/api/books', bookController.deleteBook);
 router.get('/api/books-categories', bookController.getBooksCategories);
 
-module.exports = router;
+module.exports = router; */
