@@ -1,0 +1,107 @@
+DROP DATABASE labb3moviesphere;
+
+CREATE DATABASE labb3moviesphere;
+USE labb3moviesphere;
+
+CREATE TABLE genres (
+    genreId INT NOT NULL AUTO_INCREMENT,
+    genreName VARCHAR(50) NOT NULL UNIQUE,
+    PRIMARY KEY (genreId)
+);
+
+CREATE TABLE directors (
+    directorId INT NOT NULL AUTO_INCREMENT,
+    directorName VARCHAR(50) NOT NULL,
+    directorImg VARCHAR(255) ,
+    PRIMARY KEY (directorId)
+);
+
+CREATE TABLE actors (
+    actorId INT NOT NULL AUTO_INCREMENT,
+    actorName VARCHAR(50) NOT NULL,
+    actorImg VARCHAR(255) ,
+    actorBorn INT,
+    PRIMARY KEY (actorId)
+);
+
+CREATE TABLE movies (
+    movieId INT NOT NULL AUTO_INCREMENT,
+    movieTitle VARCHAR(50) NOT NULL,
+    movieYear INT,
+    movieOriginalLanguage VARCHAR(50),
+    movieGenreId INT,
+    movieDirectorId INT,
+    PRIMARY KEY(movieId),
+    FOREIGN KEY (movieGenreId) REFERENCES genres(genreId),
+    FOREIGN KEY (movieDirectorId) REFERENCES directors(directorId)
+);
+
+CREATE TABLE movieActors (
+    movieActorId INT NOT NULL AUTO_INCREMENT,
+    movieActorMovieId INT,
+    movieActorActorId INT,
+    PRIMARY KEY (movieActorId),
+    FOREIGN KEY (movieActorMovieId) REFERENCES movies (movieId),
+    FOREIGN KEY (movieActorActorId) REFERENCES actors (actorId)
+);
+
+-- Insert genres
+INSERT INTO genres (genreName) VALUES
+('Action'),
+('Drama'),
+('Comedy'),
+('Horror'),
+('Science Fiction');
+
+-- Insert directors
+INSERT INTO directors (directorName,directorImg) VALUES
+('Christopher Nolan','https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcRZcOW8Ue7SShqrNLZNsrvpoj7sJ3S_BR-Tz5A3j8hTUyW-W3XaCNKCcqVhiQ-IufwPgorEapBr72-CxtU'),
+('Quentin Tarantino','https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcQo2DB68JRQ4eNqpk2wKbeqztumjo-VOm8Gb-NZo_WD_X3pLGFebC80PKvnIKi3J8kMf2Xtj-rgq3A9KjY'),
+('Steven Spielberg','https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Steven_Spielberg_Masterclass_Cin%C3%A9math%C3%A8que_Fran%C3%A7aise_2_cropped.jpg/220px-Steven_Spielberg_Masterclass_Cin%C3%A9math%C3%A8que_Fran%C3%A7aise_2_cropped.jpg'),
+('Martin Scorsese','https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcReumqAUbZIg8Q8tESaPpaT9dVdQ204mG4-Sgk6ki7Qox_JzWsraRwWJWgJnqP5n3sq9vF1jAxaXjDoO8c'),
+('James Cameron','https://res.cloudinary.com/dxw0o8aaj/image/upload/v1/explorer_profiles/unf8o6see6wip8v5fsci?pic_uid=explorer_profiles%2Funf8o6see6wip8v5fsci');
+
+-- Insert actors
+INSERT INTO actors (actorName, actorBorn,actorImg) VALUES
+('Tom Hanks', 1956,'https://cdn2.kennedy-center.org/images/slideshow/TomHanks2014_slideshow.jpg'),
+('Leonardo DiCaprio', 1974,'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRm1XhaKXD8_b-xxEz3wp8lxLY7E1j7sY38BHqvw6AS0LG6Zf3B'),
+('Scarlett Johansson', 1984,'https://media.vogue.fr/photos/646dcec06259945906b9faa8/2:3/w_2560%2Cc_limit/1492700200'),
+('Brad Pitt', 1963,'https://images.mubicdn.net/images/cast_member/2552/cache-207-1524922850/image-w856.jpg?size=800x'),
+('Angelina Jolie', 1975,'https://image.tmdb.org/t/p/w500/nXA9vMvskmIDB5NqHCkTQPmemep.jpg'),
+('Robert Downey Jr.', 1965,'https://californiamuseum.org/wp-content/uploads/robertdowneyjr_cahalloffameinductee-1.png'),
+('Jennifer Lawrence', 1990,'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSIla7jB4QvBRpAjSZjc5E8sHoGum43cm58GgIXcyth6XsSqfzo'),
+('Will Smith', 1968,'https://media.npr.org/assets/img/2021/11/10/will-smith-new-headshot-credit-lorenzo-agius_wide-fce30e30fbf83a2c586848fa991d1d61ab768cd2-s1100-c50.jpg'),
+('Emma Stone', 1988,'https://www.usmagazine.com/wp-content/uploads/2021/04/Emma-Stone-Very-Hands-On-Mom-With-Her-Daughter-001.jpg?w=800&h=1421&crop=1&quality=86&strip=all'),
+('Matt Damon', 1970,'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT9LHOr-9heRREg1kcbUk3wpeADWC2F80UMqnx-F7mB1Oda9wWf');
+
+-- Insert movies
+INSERT INTO movies (movieTitle, movieYear, movieOriginalLanguage, movieGenreId, movieDirectorId) VALUES
+('Inception', 2010, 'English', 1, 1),
+('Pulp Fiction', 1994, 'English', 2, 2),
+('Jurassic Park', 1993, 'English', 4, 3),
+('The Godfather', 1972, 'English', 2, 4),
+('Titanic', 1997, 'English', 2, 5),
+('Avatar', 2009, 'English', 1, 5),
+('The Dark Knight', 2008, 'English', 1, 1),
+('Forrest Gump', 1994, 'English', 2, 1),
+('The Matrix', 1999, 'English', 1, 1),
+('The Shawshank Redemption', 1994, 'English', 2, 4);
+
+-- Insert movie actors
+INSERT INTO movieActors (movieActorMovieId, movieActorActorId) VALUES
+(1, 2),  -- Leonardo DiCaprio (Inception)
+(2, 4),  -- Uma Thurman (Pulp Fiction)
+(3, 1),  -- Tom Hanks (Jurassic Park)
+(4, 4),  -- Marlon Brando (The Godfather)
+(5, 1),  -- Leonardo DiCaprio (Titanic)
+(6, 2),  -- Sigourney Weaver (Avatar)
+(7, 4),  -- Heath Ledger (The Dark Knight)
+(8, 1),  -- Tom Hanks (Forrest Gump)
+(9, 7),  -- Keanu Reeves (The Matrix)
+(10, 3); -- Tim Robbins (The Shawshank Redemption)
+
+
+
+SELECT * FROM movies;
+SELECT * FROM directors;
+SELECT * FROM directors WHERE directorId = 1;
