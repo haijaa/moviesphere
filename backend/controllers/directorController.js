@@ -34,25 +34,24 @@ exports.getDirector = async (req, res) => {
 };
 
 exports.createDirector = async (req, res) => {
-  const { directorName } = req.body;
-  let sql = 'INSERT INTO directors (directorName) VALUES (?)';
-  let params = [directorName];
+  const { directorName, directorImg } = req.body;
+
   if (!directorName || directorName.trim().length < 1) {
     return res.status(400).json({
       success: false,
       error: 'The Director name is missing',
     });
   }
+
+  let sql = 'INSERT INTO directors (directorName, directorImg) VALUES (?, ?)';
+  let params = [directorName, directorImg];
+
   try {
-    await connectionMySQL.query(sql, params, (error, results, fields) => {
-      if (error) {
-        throw error;
-      }
-      return res.status(201).json({
-        success: true,
-        error: '',
-        message: 'You have added a Director',
-      });
+    await connectionMySQL.query(sql, params);
+    return res.status(201).json({
+      success: true,
+      error: '',
+      message: 'You have added a Director',
     });
   } catch (error) {
     return res.status(500).json({
@@ -61,7 +60,6 @@ exports.createDirector = async (req, res) => {
     });
   }
 };
-
 exports.updateDirector = async (req, res) => {
   const { id } = req.params;
   const { directorName } = req.body;
