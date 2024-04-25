@@ -14,9 +14,14 @@ app.use(express.static('public'))
 const actorRoutes = require('./routes/actorRoutes')
 const movieRoutes = require('./routes/movieRoutes')
 const directorRoutes = require('./routes/directorRoutes')
+const reviewRoutes = require('./routes/reviewRoutes')
 
 app.use(actorRoutes)
 app.use(movieRoutes)
 app.use(directorRoutes)
+app.use(reviewRoutes)
+
+const connectionMongoDB = require('./connectionMongoDB')
+connectionMongoDB()
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
