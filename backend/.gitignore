@@ -3,3 +3,4 @@ node_modules
 connectionMySQL.js
 Labb3BackendMySQL.txt
 MySql.txt
+connectionMongoDB.js
