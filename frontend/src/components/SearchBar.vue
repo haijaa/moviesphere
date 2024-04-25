@@ -4,6 +4,10 @@
 
 <template>
 <div class="gradient-background">
+    <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/movies">Movies</RouterLink>
+      </nav>
     <div class="container">
         <h1 class="title">McqMate</h1>
         <p class="subtitle">For Students, From Students</p>
@@ -56,7 +60,7 @@
 }
 
 .input-field {
-    width: 100%;
+    width: 95%;
     padding: 0.75rem;
     border: none;
     border-radius: 0.5rem;

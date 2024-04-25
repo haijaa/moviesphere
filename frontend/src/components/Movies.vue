@@ -55,7 +55,7 @@ fetchMovies()
 
 .image-container {
   overflow: hidden;
-  height: 200px;
+  height: 250px;
 }
 
 .movies-image {
