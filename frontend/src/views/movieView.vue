@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import Movies from '../components/Movies.vue';
 
 const movies = ref([])
 const directors = ref([])
@@ -38,5 +39,6 @@ fetch('http://localhost:3000/directors')
   <li v-for="director in directors">{{ director.directorImg }} </li>
 </ul>
 </div>
+<Movies />
 </main>
 </template>
