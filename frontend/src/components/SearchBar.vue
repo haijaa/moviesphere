@@ -7,6 +7,7 @@
     <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/movies">Movies</RouterLink>
+        <RouterLink to="/directors">Directors</RouterLink>
       </nav>
     <div class="container">
         <h1 class="title">Movie Sphere</h1>
