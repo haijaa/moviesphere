@@ -1,16 +1,24 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import SearchBar from './components/SearchBar.vue';
+
 
 </script>
 
 <template>
   <header>
-<SearchBar />
+
+
+      <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/movies">Movies</RouterLink>
+        <RouterLink to="/directors">Directors</RouterLink>
+      </nav>
   </header>
   <RouterView />
+  <directors />
 </template>
 
 <style scoped>
 
 </style>
+

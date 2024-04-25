@@ -9,15 +9,12 @@
         <RouterLink to="/movies">Movies</RouterLink>
       </nav>
     <div class="container">
-        <h1 class="title">McqMate</h1>
-        <p class="subtitle">For Students, From Students</p>
+        <h1 class="title">Movie Sphere</h1>
+        <p class="subtitle">What to watch next?</p>
 
         <div class="input-container">
-            <input type="text" class="input-field" placeholder="Search MCQ | Topic | Course">
+            <input type="text" class="input-field" placeholder="Search for a Movie">
             <button type="submit" class="search-button">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>
             </button>
         </div>
     </div>
@@ -38,6 +35,7 @@
     align-items: center;
     padding: 1rem;
     max-width: 100%;
+
 }
 
 .title {
@@ -57,6 +55,7 @@
     border-radius: 0.5rem;
     width: 100%;
     max-width: 30rem;
+    box-shadow: #454647 15px 15px;
 }
 
 .input-field {
