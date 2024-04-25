@@ -1,24 +1,29 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-
+import SearchBar from './components/SearchBar.vue';
 
 </script>
 
 <template>
   <header>
-
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/movies">Movies</RouterLink>
-        <RouterLink to="/directors">Directors</RouterLink>
-      </nav>
+    <SearchBar />
   </header>
   <RouterView />
   <directors />
 </template>
-
 <style scoped>
-
+nav{
+  display:flex;
+  justify-content:space-around;
+  background-color: #a971c2;
+  color: white;
+  padding: 10px;
+  margin: 0;
+}
+a:visited {
+  color: white;
+}
+a:link {
+  color: white;
+}
 </style>
-

@@ -55,13 +55,12 @@ fetchMovies()
 
 .image-container {
   overflow: hidden;
-  height: 250px;
 }
 
 .movies-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .movies-details {

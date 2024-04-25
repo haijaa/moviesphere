@@ -4,9 +4,11 @@
 
 <template>
 <div class="gradient-background">
-    <nav>
+  <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/movies">Movies</RouterLink>
+        <RouterLink to="/directors">Directors</RouterLink>
+        <RouterLink to="/actors">Actors</RouterLink>
       </nav>
     <div class="container">
         <h1 class="title">Movie Sphere</h1>
@@ -22,6 +24,20 @@
 </template>
 
 <style>
+nav{
+  display:flex;
+  justify-content:space-around;
+  color: white;
+  padding: 10px;
+  margin: 0;
+}
+a:visited {
+  color: white;
+}
+a:link {
+  color: white;
+}
+
 .gradient-background {
     height: 400px;
     background: linear-gradient(to bottom left, #4f46e5, #805ad5, #a971c2);

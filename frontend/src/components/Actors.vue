@@ -1,30 +1,31 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-const directors = ref([])
+const actors = ref([])
 
-function fetchDirectors() {
-fetch('http://localhost:3000/directors')
+function fetchactors() {
+fetch('http://localhost:3000/actors')
 .then(response => response.json())
 .then(data => {
-  directors.value = data
+  actors.value = data
 })
   }
 
-  fetchDirectors()
+  fetchactors()
 </script>
 
 <template>
 <div class="bg-white">
   <div class="container">
-    <h2 class="sr-only">Directors</h2>
-    <div class="directors-grid">
-      <div v-for="director in directors" :key="director.directorId" class="directors">
+    <h2 class="sr-only">Actors</h2>
+    <div class="actors-grid">
+      <div v-for="actor in actors" :key="actor.actorId" class="actors">
         <div class="image-container">
-          <img :src="director.directorImg" :alt="director.directorTitle" class="directors-image" />
+          <img :src="actor.actorImg" :alt="actor.actorTitle" class="actors-image" />
         </div>
-        <div class="directors-details">
-          <h3 class="directors-name">{{ director.directorTitle }}</h3>
-          <p>{{ director.directorName }}</p>
+        <div class="actors-details">
+          <h3 class="actors-name">{{ actor.actorTitle }}</h3>
+          <p>{{ actor.actorName }}</p>
+          <p>Born:{{ actor.actorBorn }}</p>
         </div>
       </div>
     </div>
@@ -43,33 +44,35 @@ fetch('http://localhost:3000/directors')
   padding: 0 15px;
 }
 
-.directors-grid {
+.actors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
-.directors {
+.actors {
   border: 1px solid #e2e8f0;
   padding: 15px;
 }
 
 .image-container {
-  overflow: hidden;
-  height: 200px;
+  overflow:hidden ;
+  height: 400px;
+
+
 }
 
-.directors-image {
+.actors-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.directors-details {
+.actors-details {
   text-align: center;
 }
 
-.directors-name {
+.actors-name {
   margin-bottom: 10px;
 }
 
