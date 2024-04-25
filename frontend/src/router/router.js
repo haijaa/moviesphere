@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import movieView from '../views/movieView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import movieView from '../views/movieView.vue';
+import DirectorsView from '../views/directorsView.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,7 +15,11 @@ const router = createRouter({
       path: '/movies',
       component: movieView,
     },
+    {
+      path: '/directors',
+      component: DirectorsView,
+    },
   ],
-})
+});
 
-export default router
+export default router;
