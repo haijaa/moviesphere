@@ -48,23 +48,18 @@ fetchMovies()
   gap: 20px;
 }
 
-.movies {
-  border-top: 3px solid #e2e8f0; 
-  border-right: 0; 
-  border-bottom: 3px solid #e2e8f0; 
-  border-left: 0; 
-  padding: 15px;
-}
+ .movies {
+  border: 2px solid white
+ }
 
 .image-container {
   overflow: hidden;
-  height: 200px;
 }
 
 .movies-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
 }
 
 .movies-details {
