@@ -1,7 +1,7 @@
-const connectionMySQL = require('../connectionMySQL');
+const connectionMySQL = require("../connectionMySQL");
 
 exports.getMovies = async (req, res) => {
-  let sql = 'SELECT * FROM movies';
+  let sql = "SELECT * FROM movies";
   try {
     await connectionMySQL.query(sql, (error, results, fields) => {
       if (error) {
@@ -27,7 +27,7 @@ exports.createMovie = async (req, res) => {
     movieDirectorId,
   } = req.body;
   let sql =
-    'INSERT INTO movies ( movieTitle,movieImg, movieDescription, movieYear, movieOriginalLanguage, movieGenreId, movieDirectorId) VALUES (?,?,?,?,?,?,?)';
+    "INSERT INTO movies ( movieTitle, movieImg, movieDescription, movieYear, movieOriginalLanguage, movieGenreId, movieDirectorId) VALUES (?,?,?,?,?,?,?)";
   let params = [
     movieTitle,
     movieImg, // Ensure that movieImg is correctly passed here
@@ -40,7 +40,7 @@ exports.createMovie = async (req, res) => {
   if (!movieTitle) {
     return res.status(400).json({
       success: false,
-      error: 'Please enter a movietitle to add a movie',
+      error: "Please enter a movietitle to add a movie",
     });
   }
   try {
@@ -50,7 +50,7 @@ exports.createMovie = async (req, res) => {
       }
       return res.status(201).json({
         success: true,
-        error: '',
+        error: "",
         message: `You have added ${movieTitle}`,
       });
     });
@@ -73,7 +73,7 @@ exports.changeMovie = async (req, res) => {
     movieId,
   } = req.body;
   let sql =
-    'UPDATE movies SET movieTitle = ?, movieDescription = ?, movieYear = ?, movieOriginalLanguage = ?, movieGenreId = ?, movieDirectorId = ? WHERE movieId = ?';
+    "UPDATE movies SET movieTitle = ?, movieDescription = ?, movieYear = ?, movieOriginalLanguage = ?, movieGenreId = ?, movieDirectorId = ? WHERE movieId = ?";
 
   let params = [
     movieTitle,
@@ -87,7 +87,7 @@ exports.changeMovie = async (req, res) => {
   if (!movieId) {
     return res.status(400).json({
       success: false,
-      error: 'You have to enter a movie ID',
+      error: "You have to enter a movie ID",
     });
   }
   try {
@@ -97,7 +97,7 @@ exports.changeMovie = async (req, res) => {
       }
       return res.status(201).json({
         success: true,
-        error: '',
+        error: "",
         message: `You have now changed ${movieTitle}`,
       });
     });
@@ -111,11 +111,11 @@ exports.changeMovie = async (req, res) => {
 
 exports.deleteMovie = async (req, res) => {
   const { movieId } = req.body;
-  let sql = 'DELETE FROM movies WHERE movieId = ?';
+  let sql = "DELETE FROM movies WHERE movieId = ?";
   if (!movieId) {
     return res.status(400).json({
       success: false,
-      error: 'Need to enter a movie ID to delete',
+      error: "Need to enter a movie ID to delete",
     });
   }
   try {
@@ -125,7 +125,7 @@ exports.deleteMovie = async (req, res) => {
       }
       return res.status(201).json({
         success: true,
-        error: '',
+        error: "",
         message: `Movie ${movieId} is now deleted`,
       });
     });
@@ -137,15 +137,34 @@ exports.deleteMovie = async (req, res) => {
   }
 };
 
-/* exports.getMovies = async (req, res) => {
-  let sql = `
-      SELECT movieTitle, movieYear, genreName, directorName
-      FROM movies
-      INNER JOIN directors ON movies.movieDirectorId = directors.directorId
-      INNER JOIN genres ON movies.movieGenreId = genres.genreId
-    `;
+/* exports.getMovieById = async (req, res) => {
+  const { id } = req.params;
+
+  let sql = "SELECT * FROM movies WHERE movieId = ?";
   try {
-    await connectionMySQL.query(sql, (error, results, fields) => {
+    await connectionMySQL.query(sql, [id], (error, results, fields) => {
+      if (error) {
+        if (error) throw error;
+      }
+      res.json(results);
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+}; */
+
+exports.getMovie = async (req, res) => {
+  const { movieId } = req.params;
+  let sql = `SELECT movieTitle, movieDescription, movieYear, movieImg, genreName, directorName
+  FROM movies
+  INNER JOIN directors ON movies.movieDirectorId = directors.directorId
+  INNER JOIN genres ON movies.movieGenreId = genres.genreId
+  WHERE movieId = ?
+  `;
+  try {
+    await connectionMySQL.query(sql, [movieId], (error, results, fields) => {
       if (error) {
         throw error;
       }
@@ -156,4 +175,4 @@ exports.deleteMovie = async (req, res) => {
       error: error.message,
     });
   }
-}; */
+};

@@ -1,12 +1,10 @@
 <script setup>
-import SearchBar from '../components/SearchBar.vue'
+import home from '../components/Home.vue';
+
 
 </script>
-
 <template>
-  <main>
-
-<h1>startsida</h1>
-
-  </main>
+<main>
+<home />
+</main>
 </template>

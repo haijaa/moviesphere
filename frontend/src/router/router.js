@@ -1,30 +1,27 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import movieView from '../views/movieView.vue';
-import DirectorsView from '../views/directorsView.vue';
-import ActorsView from '../views/actorsView.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import homeView from "../views/HomeView.vue";
+import DirectorsView from "../views/directorsView.vue";
+import ActorsView from "../views/actorsView.vue";
+import movieView from "../views/movieView.vue";
 
-const router = createRouter({
+export default createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView,
+      component: homeView,
+      path: "/movies",
     },
     {
-      path: '/movies',
       component: movieView,
+      path: "/movie/:movieId",
     },
     {
-      path: '/directors',
       component: DirectorsView,
+      path: "/directors",
     },
     {
-      path: '/actors',
       component: ActorsView,
+      path: "/actors",
     },
   ],
 });
-
-export default router;

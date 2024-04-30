@@ -1,11 +1,16 @@
 <script setup>
-import Movies from '../components/Movies.vue';
-import AddMovie from '../components/AddMovie.vue';
-</script>
-<template>
-<main>
 
-<Movies />
+import AddMovie from '../components/AddMovie.vue';
+
+import Movie from '../components/Movie.vue';
+
+</script>
+
+
 <AddMovie />
 </main>
+</template>
+<template>
+
+<Movie />
 </template>
