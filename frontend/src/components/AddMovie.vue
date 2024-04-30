@@ -43,16 +43,20 @@
           <label for="newMovie">Original Language: </label>
           <input id="newMovieLang" type="text" v-model="movieOriginalLanguage">
         </div>
-        <div>
+
+        <div class="actorDiv">
           <label for="newMovie">Lead Actor/Actress</label>
-          <input id='newMovieActors' type="text" v-model="movieActors">
+          <select id="newMovieActors" v-model="movieActor">
+            <option v-for="actor in actors" :value="actor.actorId">{{actor.actorName}}</option>
+          </select>
+          <button type="button" @click="submitActor">ADD</button> <!-- Changed to button type -->
         </div>
         <div class="directorDiv">
           <label for="newMovie">Director</label>
           <select id="newMovieDirectors" v-model="movieDirector">
             <option v-for="director in directors" :value="director.directorId">{{director.directorName}}</option>
           </select>
-          <button type="button" @click="submitDirector">ADD</button> <!-- Changed to button type -->
+          <button type="button" @click="submitDirector">ADD</button>
         </div>
 
         <div>
@@ -78,6 +82,8 @@ const movieDirector = ref('');
 const movieDescription = ref('');
 
 const directors = ref([])
+const actors = ref([])
+const movieActor = ref('');
 
 const years = ref([]);
 
@@ -155,6 +161,41 @@ const submitDirector = async () => {
   }
 };
 
+const submitActor = async () => {
+  let selectedActorId = movieActor.value;
+
+  if (!selectedActorId) {
+    let newActorName = prompt('Enter the name of the new actor:');
+    let newActorImg = prompt('Enter the image link for the new actor:');
+
+    try {
+      const response = await fetch('http://localhost:3000/actors', { // Updated endpoint
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          actorName: newActorName,
+          actorImg: newActorImg,
+        }),
+      });
+      const data = await response.json();
+      console.log('Server Response:', data);
+      if (response.ok) {
+        console.log(data.message);
+        actors.value.push({ actorId: data.actorId, actorName: newActorName });
+        window.location.reload();
+      } else {
+        console.error(data.error);
+        return;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return;
+    }
+  }
+};
+
 function fetchDirectors() {
   fetch('http://localhost:3000/directors')
   .then(response => response.json())
@@ -163,7 +204,18 @@ function fetchDirectors() {
   })
 }
 
-fetchDirectors()
+fetchDirectors();
+
+function fetchActors() {
+  fetch('http://localhost:3000/actors')
+  .then(response => response.json())
+  .then(data => {
+    actors.value = data
+  })
+}
+
+fetchActors();
+
 </script>
 
 <style>
@@ -258,12 +310,12 @@ width: fit-content;
 margin: 0;
 box-shadow: #454647 3px 3px;
 }
-.directorDiv{
+.directorDiv, .actorDiv{
   display: flex;
   align-items: center;
   margin-bottom: 5px;
 }
-.directorDiv button {
+.directorDiv button, .actorDiv button {
   height: 30px;
 margin-left: 5px;
 width: 40%;
@@ -275,7 +327,7 @@ padding: 10px 20px;
   cursor: pointer;
   box-shadow: #454647 8px 8px;
 }
-.directorDiv select{
+.directorDiv select, .actorDiv select{
   height: 30px;
 margin-left: 5px;
 width: 40%;
