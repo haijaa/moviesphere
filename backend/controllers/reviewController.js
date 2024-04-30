@@ -11,6 +11,18 @@ exports.getReviews = async (req, res) => {
   }
 }
 
+exports.getReviewsByMovieId = async (req, res) => {
+  const { movieId } = req.params
+  try {
+    const review = await reviewModel.find({ movieId: movieId })
+    return res.status(200).json(review)
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message,
+    })
+  }
+}
+
 exports.createReview = async (req, res) => {
   const { author, comment, movieId, rating } = req.body
 
