@@ -44,12 +44,15 @@
           <input id="newMovieLang" type="text" v-model="movieOriginalLanguage">
         </div>
         <div>
-          <label for="newMovie">Actors</label>
+          <label for="newMovie">Lead Actor/Actress</label>
           <input id='newMovieActors' type="text" v-model="movieActors">
         </div>
-        <div>
+        <div class="directorDiv">
           <label for="newMovie">Director</label>
-          <input id='newMovieDirector' type="text" v-model="movieDirector">
+          <select id="newMovieDirectors" v-model="movieDirector">
+            <option v-for="director in directors" :value="director.directorId">{{director.directorName}}</option>
+          </select>
+          <button type="button" @click="submitDirector">ADD</button> <!-- Changed to button type -->
         </div>
 
         <div>
@@ -74,6 +77,8 @@ const movieActors = ref('');
 const movieDirector = ref('');
 const movieDescription = ref('');
 
+const directors = ref([])
+
 const years = ref([]);
 
 onMounted(() => {
@@ -86,7 +91,7 @@ onMounted(() => {
 const submitForm = async () => {
   try {
     console.log('Submitting form...');
-    console.log('Movie Image:', movieImg.value); // Log movie image before sending request
+    console.log('Movie Image:', movieImg.value);
     const response = await fetch('http://localhost:3000/movies', {
       method: 'POST',
       headers: {
@@ -103,7 +108,7 @@ const submitForm = async () => {
       }),
     });
     const data = await response.json();
-    console.log('Server Response:', data); // Log server response
+    console.log('Server Response:', data);
     if (response.ok) {
       console.log(data.message);
       window.location.reload();
@@ -114,6 +119,50 @@ const submitForm = async () => {
     console.error('Error:', error);
   }
 };
+
+const submitDirector = async () => {
+  let selectedDirectorId = movieDirector.value;
+
+  if (!selectedDirectorId) {
+    let newDirectorName = prompt('Enter the name of the new director:');
+    let newDirectorImg = prompt('Enter the image link for the new director:');
+
+    try {
+      const response = await fetch('http://localhost:3000/director', { // Updated endpoint
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          directorName: newDirectorName,
+          directorImg: newDirectorImg,
+        }),
+      });
+      const data = await response.json();
+      console.log('Server Response:', data);
+      if (response.ok) {
+        console.log(data.message);
+        directors.value.push({ directorId: data.directorId, directorName: newDirectorName });
+      } else {
+        console.error(data.error);
+        return;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return;
+    }
+  }
+};
+
+function fetchDirectors() {
+  fetch('http://localhost:3000/directors')
+  .then(response => response.json())
+  .then(data => {
+    directors.value = data
+  })
+}
+
+fetchDirectors()
 </script>
 
 <style>
@@ -179,6 +228,8 @@ const submitForm = async () => {
   box-shadow: #454647 8px 8px;
   display: block;
   max-width: 50%;
+  background-color: white;
+  padding: 5px;
 }
 
 @media (min-width: 768px) {
@@ -195,7 +246,6 @@ const submitForm = async () => {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
-  /* height: 20px; */
 }
 .genreRow label {
   margin-right: 10px;
@@ -206,5 +256,31 @@ const submitForm = async () => {
 width: fit-content;
 margin: 0;
 box-shadow: #454647 3px 3px;
+}
+.directorDiv{
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.directorDiv button {
+  height: 30px;
+margin-left: 5px;
+width: 40%;
+padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: #454647 8px 8px;
+}
+.directorDiv select{
+  height: 30px;
+margin-left: 5px;
+width: 40%;
+box-shadow: #454647 8px 8px;
+}
+#newMovieYear{
+  box-shadow: #454647 8px 8px;
 }
 </style>
