@@ -143,6 +143,7 @@ const submitDirector = async () => {
       if (response.ok) {
         console.log(data.message);
         directors.value.push({ directorId: data.directorId, directorName: newDirectorName });
+        window.location.reload();
       } else {
         console.error(data.error);
         return;
