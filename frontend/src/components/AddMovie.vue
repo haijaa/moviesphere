@@ -17,8 +17,21 @@
           <input id="newMovieTitle" type="text" v-model="movieTitle">
         </div>
         <div>
-          <label for="newMovie">Genre: </label>
-          <input id="newMovieGenre" type="text" v-model="movieGenre">
+         <label for="newMovie">Genre:</label>
+            <div class="genreRow">
+              <input type="radio" id="genre1" value="1" v-model="movieGenre">
+                <label for="genre1">Action</label>
+              <input type="radio" id="genre3" value="3" v-model="movieGenre">
+                <label for="genre3">Comedy</label>
+              <input type="radio" id="genre2" value="2" v-model="movieGenre">
+                <label for="genre2">Drama</label>
+            </div>
+            <div class="genreRow">
+              <input type="radio" id="genre4" value="4" v-model="movieGenre">
+                <label for="genre4">Horror</label>
+              <input type="radio" id="genre5" value="5" v-model="movieGenre">
+                <label for="genre5">Sci-Fi</label>
+            </div>
         </div>
         <div>
           <label for="newMovie">Year: </label>
@@ -176,5 +189,22 @@ const submitForm = async () => {
     flex: 1;
     margin-right: 20px;
   }
+}
+
+.genreRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  /* height: 20px; */
+}
+.genreRow label {
+  margin-right: 10px;
+  margin-left: 5px;
+  width: 20%;
+}
+.genreRow input {
+width: fit-content;
+margin: 0;
+box-shadow: #454647 3px 3px;
 }
 </style>
