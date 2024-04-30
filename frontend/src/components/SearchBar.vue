@@ -95,4 +95,13 @@ a:link {
     border: none;
     cursor: pointer;
 }
+
+@media (max-width: 425px ) {
+    .input-container {
+        width: 60%;
+    }
+    .input-field {
+        width: 90%;
+    }
+}
 </style>

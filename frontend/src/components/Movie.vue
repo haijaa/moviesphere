@@ -19,31 +19,84 @@ fetchMoviesById()
 
 </script>
 <template>
-    <div v-if="movie.length">
+  <main>
+    <div class="container">
+    <div v-if="movie.length" class="movieCard-container">
+      <div class="provarbara">
+      <img :src="movie[0].movieImg" :alt="movie[0].movieTitle" class="movies-image" />
+      <div class="movieCard-information">
        <h1> {{ movie[0].movieTitle }} </h1>
-       <img :src="movie[0].movieImg" :alt="movie[0].movieTitle" class="movies-image" />
-       <p class="categoryText"> Description: </p>
-       <p>{{ movie[0].movieDescription }}</p>
+       <br>
+       <p class="descriptionText"> {{ movie[0].movieDescription }}</p>
+        <br>
        <p class="categoryText"> Released: </p>
        <p>{{ movie[0].movieYear }} </p>
-       <p class="categoryText"> Director: </p>
-       <p>{{ movie[0].directorName}}</p>
+
        <p class="categoryText"> Genres: </p>
        <p>{{ movie[0].genreName }} </p>
+      </div>
+    </div>
+    <br>
+      <div class="cast-container">
+      <div class="director-container">
+      <p class="categoryText"> Director: </p>
+       <img :src="movie[0].directorImg" :alt="movie[0].directorName" class="directorImage">
+       <p>{{ movie[0].directorName}}</p>
+      </div>
+      <br>
+      <div class="actor-container">
+       <p class="categoryText"> Lead actor: </p>
+       <img :src="movie[0].actorImg" :alt="movie[0].actorName" class="directorImage">
+       <p>{{ movie[0].actorName}}</p>
+      </div>
+      </div>
     </div>
     <div v-else>
         Loading...
     </div>
+  </div>
+  </main>
 </template>
 
 
 <style scoped>
-.movies-image {
-    height: 250px;
-    width: 150px;
+.container {
+  display: flex;
+}
+.provarbara {
+  display: flex;
+}
+.movieCard-container {
+  display: flex;
+  padding: 20px;
+  width: 50%;
+  flex-direction: column;
 }
 .categoryText {
     font-style: italic;
     font-weight: bold;
+}
+.movies-image {
+    max-height: 480px;
+    max-width: 300px;
+}
+.movieCard-information {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+}
+.directorImage {
+  height: 200px;
+  width: 200px;
+}
+.cast-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+* {
+  padding: 0;
+  margin: 0;
 }
 </style>

@@ -65,6 +65,7 @@ exports.createMovie = async (req, res) => {
 exports.changeMovie = async (req, res) => {
   const {
     movieTitle,
+    movieImg,
     movieDescription,
     movieYear,
     movieOriginalLanguage,
@@ -73,10 +74,11 @@ exports.changeMovie = async (req, res) => {
     movieId,
   } = req.body;
   let sql =
-    "UPDATE movies SET movieTitle = ?, movieDescription = ?, movieYear = ?, movieOriginalLanguage = ?, movieGenreId = ?, movieDirectorId = ? WHERE movieId = ?";
+    "UPDATE movies SET movieTitle = ?, movieImg = ?, movieDescription = ?, movieYear = ?, movieOriginalLanguage = ?, movieGenreId = ?, movieDirectorId = ? WHERE movieId = ?";
 
   let params = [
     movieTitle,
+    movieImg,
     movieDescription,
     movieYear,
     movieOriginalLanguage,
@@ -157,10 +159,12 @@ exports.deleteMovie = async (req, res) => {
 
 exports.getMovie = async (req, res) => {
   const { movieId } = req.params;
-  let sql = `SELECT movieTitle, movieDescription, movieYear, movieImg, genreName, directorName
+  let sql = `SELECT movieTitle, movieDescription, movieYear, movieImg, genreName, directorName, directorImg, actorName, actorImg
   FROM movies
-  INNER JOIN directors ON movies.movieDirectorId = directors.directorId
+  INNER JOIN movieActors ON movies.movieId = movieActors.movieActorMovieId
+  INNER JOIN actors ON movieActors.movieActorActorId = actors.actorId
   INNER JOIN genres ON movies.movieGenreId = genres.genreId
+  INNER JOIN directors ON movies.movieDirectorId = directors.directorId
   WHERE movieId = ?
   `;
   try {
