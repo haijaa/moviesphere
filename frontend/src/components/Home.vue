@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue';
 const movies = ref([])
 
+
 function fetchMovies() {
 fetch('http://localhost:3000/movies')
 .then(response => response.json())
@@ -10,6 +11,11 @@ fetch('http://localhost:3000/movies')
 })
   }
 fetchMovies()
+
+/* function prova (x) {
+  console.log(x)
+}  */
+
 </script>
 
 <template>
@@ -17,7 +23,8 @@ fetchMovies()
   <div class="container">
     <h2 class="sr-only">Movies</h2>
     <div class="movies-grid">
-      <div v-for="movie in movies" :key="movie.movieId" class="movies">
+      <div v-for="movie in movies" :key="movie.movieId" class="movies" @click="$router.push(`/movie/${movie.movieId}`)">
+<!--       <div v-for="movie in movies" :key="movie.movieId" class="movies" @click="prova(movie.movieId)"> -->
         <div class="image-container">
           <img :src="movie.movieImg" :alt="movie.movieTitle" class="movies-image" />
         </div>

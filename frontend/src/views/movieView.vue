@@ -1,10 +1,10 @@
 <script setup>
-import Movies from '../components/Movies.vue';
+
+import Movie from '../components/Movie.vue';
 
 </script>
-<template>
-<main>
 
-<Movies />
-</main>
+<template>
+
+<Movie />
 </template>

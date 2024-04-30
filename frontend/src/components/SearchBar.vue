@@ -1,18 +1,20 @@
 <script setup>
+import router from '../router/router';
+
+
+function goHome () {
+    router.push(`/movies`)
+}
 
 </script>
 
 <template>
 <div class="gradient-background">
   <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/movies">Movies</RouterLink>
-        <RouterLink to="/directors">Directors</RouterLink>
-        <RouterLink to="/actors">Actors</RouterLink>
-
+        <RouterLink to="/movies">Home</RouterLink>
       </nav>
     <div class="container">
-        <h1 class="title">Movie Sphere</h1>
+        <h1 class="title" @click="goHome()">MovieSphere</h1>
         <p class="subtitle">What to watch next?</p>
 
         <div class="input-container">
@@ -25,6 +27,7 @@
 </template>
 
 <style>
+
 nav{
   display:flex;
   justify-content:space-around;
@@ -32,9 +35,11 @@ nav{
   padding: 10px;
   margin: 0;
 }
+
 a:visited {
   color: white;
 }
+
 a:link {
   color: white;
 }
