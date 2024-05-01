@@ -5,7 +5,10 @@ import Reviews from '../components/Reviews.vue';
 </script>
 <template>
 <main>
-    <Movie />
+
+<Movie />
 <Reviews />
+
 </main>
 </template>
+

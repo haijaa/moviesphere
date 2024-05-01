@@ -57,7 +57,7 @@ const submitRatingForm = async () => {
 </script>
 <template>
 
-
+<div class="gigacontainer">
 <div class="review-container" v-if="reviews.length">
 <div  v-for="review in reviews">
   <div class="review" >
@@ -75,7 +75,9 @@ const submitRatingForm = async () => {
 </div>
 
 <div v-else>
-  No reviews for this movie yet :(
+  No reviews for this movie yet :( 
+    <br>
+  Add one down here.
 </div>
 
 
@@ -100,11 +102,17 @@ const submitRatingForm = async () => {
   </div>
   <button type="submit">Submit review</button>
 </form>
-
+</div>
 
 
 </template>
 <style scoped>
+.gigacontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .review-container {
   display: flex;
   flex-direction: column;
@@ -122,7 +130,7 @@ padding-left: 20px;
 .review-form {
   display: flex;
   flex-direction: column;
-  max-width: 80%;
+  width: 30%;
   padding: 20px;
   border-radius: 10px;
   box-shadow: #454647 8px 8px;

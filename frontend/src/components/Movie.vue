@@ -64,8 +64,13 @@ fetchMoviesById()
 
 
 <style scoped>
+main {
+  display: flex;
+  justify-content: center;
+}
 .container {
   display: flex;
+  justify-content: center;
 }
 .provarbara {
   display: flex;
@@ -77,21 +82,21 @@ fetchMoviesById()
   flex-direction: column;
 }
 .categoryText {
-    font-style: italic;
-    font-weight: bold;
+
+  font-weight: bold;
 }
 .movies-image {
-    max-height: 480px;
-    max-width: 300px;
+  max-height: 480px;
+  max-width: 300px;
 }
 .movieCard-information {
   display: flex;
   flex-direction: column;
-  padding-left: 15px;
+  padding-left: 40px;
 }
 .directorImage {
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
 }
 .cast-container {
   display: flex;
