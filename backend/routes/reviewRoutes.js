@@ -3,7 +3,7 @@ const router = express.Router()
 const reviewController = require('../controllers/reviewController')
 
 router.get('/reviews', reviewController.getReviews)
-router.get('/movies/:movieId', reviewController.getReviewsByMovieId)
+router.get('/movie/:movieId/reviews', reviewController.getReviewsByMovieId)
 router.post('/reviews', reviewController.createReview)
 router.put('/reviews', reviewController.updateReview)
 router.delete('/reviews', reviewController.deleteReview)

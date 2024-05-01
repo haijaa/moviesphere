@@ -6,6 +6,8 @@ const route = useRoute()
 const movie = ref({})
 
 
+
+
 function fetchMoviesById () {
   fetch(`http://localhost:3000/movie/${route.params.movieId}`)
   .then(response => response.json())
@@ -15,6 +17,8 @@ function fetchMoviesById () {
 }
 
 fetchMoviesById()
+
+
 
 
 </script>
@@ -34,6 +38,7 @@ fetchMoviesById()
     <div v-else>
         Loading...
     </div>
+
 </template>
 
 
@@ -46,4 +51,7 @@ fetchMoviesById()
     font-style: italic;
     font-weight: bold;
 }
+
+
+
 </style>
