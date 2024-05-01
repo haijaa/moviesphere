@@ -26,7 +26,7 @@ function goHome () {
 </div>
 </template>
 
-<style>
+<style scoped>
 
 nav{
   display:flex;

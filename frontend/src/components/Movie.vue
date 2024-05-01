@@ -6,6 +6,8 @@ const route = useRoute()
 const movie = ref({})
 
 
+
+
 function fetchMoviesById () {
   fetch(`http://localhost:3000/movie/${route.params.movieId}`)
   .then(response => response.json())
@@ -15,6 +17,8 @@ function fetchMoviesById () {
 }
 
 fetchMoviesById()
+
+
 
 
 </script>
