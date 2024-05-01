@@ -56,8 +56,8 @@ const submitRatingForm = async () => {
 
 </script>
 <template>
-
-<div class="gigacontainer">
+  <div class="gigacontainer">
+  <h2>Users reviews</h2>
 <div class="review-container" v-if="reviews.length">
 <div  v-for="review in reviews">
   <div class="review" >
@@ -67,7 +67,7 @@ const submitRatingForm = async () => {
      <p>{{ review.comment }}</p>
     </div>
     <div>
-      <p> Rating: {{ review.rating }}</p>
+      <p> Rating: {{ review.rating }}/5</p>
     </div>
   </div>
 </div>
@@ -75,9 +75,9 @@ const submitRatingForm = async () => {
 </div>
 
 <div v-else>
-  No reviews for this movie yet :( 
-    <br>
-  Add one down here.
+ <p>No reviews for this movie yet :(</p>
+ <p>Add one down here.</p>
+
 </div>
 
 
@@ -116,21 +116,24 @@ const submitRatingForm = async () => {
 .review-container {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  flex-wrap: wrap;
+  justify-content: center;
 
 }
 
 .review {
-border: solid;
+border: double;
 margin: 1em;
-max-width: 375px;
+width: 320px;
 padding-left: 20px;
+padding-right: 20px;
+
 }
 
 .review-form {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 80%;
   padding: 20px;
   border-radius: 10px;
   box-shadow: #454647 8px 8px;
@@ -172,6 +175,11 @@ button {
   margin-top: 10px;
 }
 
+@media (min-width: 400px) {
+  .review-form {
+    width: 30%;
+  }
+}
 
 @media (min-width: 700px) {
   .review-container {
