@@ -1,74 +1,64 @@
 <template>
   <div class="formContainer">
-  <form @submit.prevent="submitForm">
-    <div class="newMovieForm">
-      <div class="formColumn">
-        <h1>Add A New Movie</h1>
-        <div class="imageContainer">
-          <img :src="movieImg" alt="No image provided" class="movieImage">
+    <form @submit.prevent="submitForm">
+      <div class="newMovieForm">
+        <div class="formColumn">
+          <h1>Add A New Movie</h1>
+          <div class="imageContainer">
+            <img :src="movieImg" alt="No image provided" class="movieImage">
+          </div>
+          <div>
+            <label for="newMovie">Image Link: </label>
+            <input id="newMovieImg" type="url" v-model="movieImg">
+          </div>
         </div>
-        <div>
-          <label for="newMovie">Image Link: </label>
-          <input id="newMovieImg" type="url" v-model="movieImg">
+        <div class="formColumn">
+          <div>
+            <label for="newMovie">Movie Title: </label>
+            <input id="newMovieTitle" type="text" v-model="movieTitle">
+          </div>
+          <div class="genreDiv">
+            <label for="newMovie">Genre: </label>
+            <select id="newMovieGenres" v-model="movieGenre">
+              <option v-for="genre in genres" :value="genre.genreId">{{ genre.genreName }}</option>
+            </select>
+            <button type="button" @click="submitGenre">ADD</button>
+          </div>
+          <div>
+            <label for="newMovie">Year: </label>
+            <select id="newMovieYear" v-model="movieYear">
+              <option v-for="year in years" :value="year">{{ year }}</option>
+            </select>
+          </div>
+          <div>
+            <label for="newMovie">Original Language: </label>
+            <input id="newMovieLang" type="text" v-model="movieOriginalLanguage">
+          </div>
+
+          <div class="actorDiv">
+            <label for="newMovie">Lead Actor/Actress</label>
+            <select id="newMovieActors" v-model="movieActor">
+              <option v-for="actor in actors" :value="actor.actorId">{{ actor.actorName }}</option>
+            </select>
+            <button type="button" @click="submitActor">ADD</button>
+          </div>
+          <div class="directorDiv">
+            <label for="newMovie">Director</label>
+            <select id="newMovieDirectors" v-model="movieDirector">
+              <option v-for="director in directors" :value="director.directorId">{{ director.directorName }}</option>
+            </select>
+            <button type="button" @click="submitDirector">ADD</button>
+          </div>
+
+          <div>
+            <label for="newMovie">Description: </label>
+            <textarea id="newMovieDesc" rows="5" maxlength="200" v-model="movieDescription"></textarea>
+          </div>
+          <button type="submit">Submit</button>
         </div>
       </div>
-      <div class="formColumn">
-        <div>
-          <label for="newMovie">Movie Title: </label>
-          <input id="newMovieTitle" type="text" v-model="movieTitle">
-        </div>
-        <div>
-         <label for="newMovie">Genre:</label>
-            <div class="genreRow">
-              <input type="radio" id="genre1" value="1" v-model="movieGenre">
-                <label for="genre1">Action</label>
-              <input type="radio" id="genre3" value="3" v-model="movieGenre">
-                <label for="genre3">Comedy</label>
-              <input type="radio" id="genre2" value="2" v-model="movieGenre">
-                <label for="genre2">Drama</label>
-            </div>
-            <div class="genreRow">
-              <input type="radio" id="genre4" value="4" v-model="movieGenre">
-                <label for="genre4">Horror</label>
-              <input type="radio" id="genre5" value="5" v-model="movieGenre">
-                <label for="genre5">Sci-Fi</label>
-            </div>
-        </div>
-        <div>
-          <label for="newMovie">Year: </label>
-          <select id="newMovieYear" v-model="movieYear">
-            <option v-for="year in years" :value="year">{{ year }}</option>
-          </select>
-        </div>
-        <div>
-          <label for="newMovie">Original Language: </label>
-          <input id="newMovieLang" type="text" v-model="movieOriginalLanguage">
-        </div>
-
-        <div class="actorDiv">
-          <label for="newMovie">Lead Actor/Actress</label>
-          <select id="newMovieActors" v-model="movieActor">
-            <option v-for="actor in actors" :value="actor.actorId">{{actor.actorName}}</option>
-          </select>
-          <button type="button" @click="submitActor">ADD</button> <!-- Changed to button type -->
-        </div>
-        <div class="directorDiv">
-          <label for="newMovie">Director</label>
-          <select id="newMovieDirectors" v-model="movieDirector">
-            <option v-for="director in directors" :value="director.directorId">{{director.directorName}}</option>
-          </select>
-          <button type="button" @click="submitDirector">ADD</button>
-        </div>
-
-        <div>
-          <label for="newMovie">Description: </label>
-          <textarea id="newMovieDesc" rows="5" maxlength="200" v-model="movieDescription"></textarea>
-        </div>
-        <button type="submit">Submit</button>
-      </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 </template>
 
 <script setup>
@@ -83,8 +73,9 @@ const movieActors = ref('');
 const movieDirector = ref('');
 const movieDescription = ref('');
 
-const directors = ref([])
-const actors = ref([])
+const genres = ref([]); // Changed from Genres to genres
+const directors = ref([]);
+const actors = ref([]);
 const movieActor = ref('');
 
 const years = ref([]);
@@ -163,6 +154,39 @@ const submitDirector = async () => {
   }
 };
 
+const submitGenre = async () => {
+  let selectedGenreId = movieGenre.value;
+
+  if (!selectedGenreId) {
+    let newGenreName = prompt('Enter the name of the new genre:');
+
+    try {
+      const response = await fetch('http://localhost:3000/genres', { // Updated endpoint
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          genreName: newGenreName,
+        }),
+      });
+      const data = await response.json();
+      console.log('Server Response:', data);
+      if (response.ok) {
+        console.log(data.message);
+        genres.value.push({ genreId: data.genreId, genreName: newGenreName });
+        window.location.reload();
+      } else {
+        console.error(data.error);
+        return;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return;
+    }
+  }
+};
+
 const submitActor = async () => {
   let selectedActorId = movieActor.value;
 
@@ -197,6 +221,15 @@ const submitActor = async () => {
     }
   }
 };
+function fetchGenres() {
+  fetch('http://localhost:3000/genres')
+  .then(response => response.json())
+  .then(data => {
+    genres.value = data
+  })
+}
+
+fetchGenres();
 
 function fetchDirectors() {
   fetch('http://localhost:3000/directors')
@@ -319,12 +352,12 @@ width: fit-content;
 margin: 0;
 box-shadow: #454647 3px 3px;
 }
-.directorDiv, .actorDiv{
+.directorDiv, .actorDiv, .genreDiv{
   display: flex;
   align-items: center;
   margin-bottom: 5px;
 }
-.directorDiv button, .actorDiv button {
+.directorDiv button, .actorDiv button, .genreDiv button {
   height: 30px;
 margin-left: 5px;
 width: 40%;
@@ -336,7 +369,7 @@ padding: 10px 20px;
   cursor: pointer;
   box-shadow: #454647 8px 8px;
 }
-.directorDiv select, .actorDiv select{
+.directorDiv select, .actorDiv select, .genreDiv select{
   height: 30px;
 margin-left: 5px;
 width: 40%;
@@ -345,4 +378,7 @@ box-shadow: #454647 8px 8px;
 #newMovieYear{
   box-shadow: #454647 8px 8px;
 }
+
+
+
 </style>
