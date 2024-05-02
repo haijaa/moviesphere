@@ -17,10 +17,11 @@ exports.getActors = async (req, res) => {
 }
 
 exports.createActor = async (req, res) => {
-  const { actorName, actorBorn } = req.body
+  const { actorName, actorImg, actorBorn } = req.body
 
-  let sql = 'INSERT INTO actors (actorName, actorBorn) VALUES (?, ?)'
-  let params = [actorName, actorBorn]
+  let sql =
+    'INSERT INTO actors (actorName, actorImg, actorBorn) VALUES (?, ?, ?)'
+  let params = [actorName, actorImg, actorBorn]
 
   if (!actorName || actorName.trim().length < 1) {
     return res.status(400).json({
@@ -48,9 +49,10 @@ exports.createActor = async (req, res) => {
 }
 
 exports.updateActor = async (req, res) => {
-  const { actorName, actorBorn, actorId } = req.body
-  let sql = 'UPDATE actors SET actorName = ?, actorBorn = ? WHERE actorId = ?'
-  let params = [actorName, actorBorn, actorId]
+  const { actorName, actorImg, actorBorn, actorId } = req.body
+  let sql =
+    'UPDATE actors SET actorName = ?, actorImg= ?, actorBorn = ? WHERE actorId = ?'
+  let params = [actorName, actorImg, actorBorn, actorId]
   if (!actorId) {
     return res.status(400).json({
       success: false,

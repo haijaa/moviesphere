@@ -1,9 +1,12 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
+import home from '../components/Home.vue';
+import AddMovie from '../components/AddMovie.vue'
 
+
+</script>
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+<main>
+<home />
+<AddMovie />
+</main>
 </template>
