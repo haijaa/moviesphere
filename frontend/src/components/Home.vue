@@ -1,45 +1,46 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-const movies = ref([])
-
+import { ref, onMounted } from "vue";
+const movies = ref([]);
 
 function fetchMovies() {
-fetch('http://localhost:3000/movies')
-.then(response => response.json())
-.then(data => {
-  movies.value = data
-})
-  }
-fetchMovies()
-
-/* function prova (x) {
-  console.log(x)
-}  */
-
+  fetch("http://localhost:3000/movies")
+    .then((response) => response.json())
+    .then((data) => {
+      movies.value = data;
+    });
+}
+fetchMovies();
 </script>
 
 <template>
-<div class="bg-white">
-  <div class="container">
-    <h2 class="sr-only">Movies</h2>
-    <div class="movies-grid">
-      <div v-for="movie in movies" :key="movie.movieId" class="movies" @click="$router.push(`/movie/${movie.movieId}`)">
-        <div class="image-container">
-          <img :src="movie.movieImg" :alt="movie.movieTitle" class="movies-image" />
-        </div>
-        <div class="movies-details">
-          <h3 class="movies-name">{{ movie.movieTitle }}</h3>
-          <p>{{ movie.movieDescription }}</p>
+  <div class="bg-white">
+    <div class="container">
+      <h2 class="sr-only">Movies</h2>
+      <div class="movies-grid">
+        <div
+          v-for="movie in movies"
+          :key="movie.movieId"
+          class="movies"
+          @click="$router.push(`/movie/${movie.movieId}`)"
+        >
+          <div class="image-container">
+            <img
+              :src="movie.movieImg"
+              :alt="movie.movieTitle"
+              class="movies-image"
+            />
+          </div>
+          <div class="movies-details">
+            <h3 class="movies-name">{{ movie.movieTitle }}</h3>
+            <p>{{ movie.movieDescription }}</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <style>
-
-
 .bg-white {
   background-color: #fff;
 }
@@ -57,9 +58,9 @@ fetchMovies()
   gap: 20px;
 }
 
- .movies {
-  border: 2px solid white
- }
+.movies {
+  border: 2px solid white;
+}
 
 .movies-image {
   width: 100%;
@@ -99,7 +100,8 @@ fetchMovies()
 }
 
 * {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   margin-top: 0;
   padding: 0;
 }
