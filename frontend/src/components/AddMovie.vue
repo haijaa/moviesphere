@@ -73,7 +73,7 @@ const movieActors = ref('');
 const movieDirector = ref('');
 const movieDescription = ref('');
 
-const genres = ref([]); // Changed from Genres to genres
+const genres = ref([]);
 const directors = ref([]);
 const actors = ref([]);
 const movieActor = ref('');
@@ -87,35 +87,93 @@ onMounted(() => {
   }
 });
 
+let tempMovieTitle = '';
+let tempActorId = '';
+
 const submitForm = async () => {
   try {
     console.log('Submitting form...');
     console.log('Movie Image:', movieImg.value);
-    const response = await fetch('http://localhost:3000/movies', {
+
+
+    tempMovieTitle = movieTitle.value;
+    tempActorId = movieActor.value;
+
+
+    const movieData = {
+      movieTitle: movieTitle.value,
+      movieImg:  movieImg.value,
+      movieDescription: movieDescription.value,
+      movieYear: movieYear.value,
+      movieOriginalLanguage: movieOriginalLanguage.value,
+      movieGenreId: movieGenre.value,
+      movieDirectorId: movieDirector.value,
+    };
+
+
+    const movieResponse = await fetch('http://localhost:3000/movies', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(movieData),
+    });
+
+    const movieDataResponse = await movieResponse.json();
+
+    if (movieResponse.ok) {
+      console.log('Movie added successfully:', movieDataResponse);
+
+
+      const movieId = await fetchMovieId(tempMovieTitle);
+
+
+      await postMovieActorAssociation(movieId, tempActorId);
+
+      window.location.reload();
+    } else {
+      console.error('Error adding movie:', movieDataResponse.error);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+const fetchMovieId = async (movieTitle) => {
+  try {
+    const moviesResponse = await fetch('http://localhost:3000/movies');
+    const moviesData = await moviesResponse.json();
+
+    const movie = moviesData.find(movie => movie.movieTitle === movieTitle);
+    if (movie) {
+      return movie.movieId;
+    } else {
+      console.error('Movie not found');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching movie ID:', error);
+    return null;
+  }
+};
+
+const postMovieActorAssociation = async (movieId, actorId) => {
+  try {
+    const response = await fetch(`http://localhost:3000/movie/${movieId}/movieActor`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        movieTitle: movieTitle.value,
-        movieImg:  movieImg.value,
-        movieDescription: movieDescription.value,
-        movieYear: movieYear.value,
-        movieOriginalLanguage: movieOriginalLanguage.value,
-        movieGenreId: movieGenre.value,
-        movieDirectorId: movieDirector.value,
+        movieActorMovieId: movieId,
+        movieActorActorId: actorId,
       }),
     });
+
     const data = await response.json();
-    console.log('Server Response:', data);
-    if (response.ok) {
-      console.log(data.message);
-      window.location.reload();
-    } else {
-      console.error(data.error);
-    }
+    console.log('Movie-Actor association:', data);
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error posting movie-actor association:', error);
   }
 };
 
@@ -127,7 +185,7 @@ const submitDirector = async () => {
     let newDirectorImg = prompt('Enter the image link for the new director:');
 
     try {
-      const response = await fetch('http://localhost:3000/director', { // Updated endpoint
+      const response = await fetch('http://localhost:3000/director', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -161,7 +219,7 @@ const submitGenre = async () => {
     let newGenreName = prompt('Enter the name of the new genre:');
 
     try {
-      const response = await fetch('http://localhost:3000/genres', { // Updated endpoint
+      const response = await fetch('http://localhost:3000/genres', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -195,7 +253,7 @@ const submitActor = async () => {
     let newActorImg = prompt('Enter the image link for the new actor:');
 
     try {
-      const response = await fetch('http://localhost:3000/actors', { // Updated endpoint
+      const response = await fetch('http://localhost:3000/actors', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
