@@ -4,11 +4,15 @@ import Reviews from '../components/Reviews.vue';
 
 </script>
 <template>
-<main>
 
+<main>
 <Movie />
 <Reviews />
 
 </main>
 </template>
+
+<style>
+
+</style>
 

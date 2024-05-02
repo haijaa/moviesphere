@@ -15,11 +15,7 @@ function fetchMoviesById () {
     movie.value = data
   })
 }
-
 fetchMoviesById()
-
-
-
 
 </script>
 <template>
@@ -30,9 +26,9 @@ fetchMoviesById()
       <img :src="movie[0].movieImg" :alt="movie[0].movieTitle" class="movies-image" />
       <div class="movieCard-information">
        <h1> {{ movie[0].movieTitle }} </h1>
-       <br>
+       
        <p class="descriptionText"> {{ movie[0].movieDescription }}</p>
-        <br>
+        
        <p class="categoryText"> Released: </p>
        <p>{{ movie[0].movieYear }} </p>
 
@@ -40,14 +36,14 @@ fetchMoviesById()
        <p>{{ movie[0].genreName }} </p>
       </div>
     </div>
-    <br>
+    
       <div class="cast-container">
       <div class="director-container">
       <p class="categoryText"> Director: </p>
        <img :src="movie[0].directorImg" :alt="movie[0].directorName" class="directorImage">
        <p>{{ movie[0].directorName}}</p>
       </div>
-      <br>
+      
       <div class="actor-container">
        <p class="categoryText"> Lead actor: </p>
        <img :src="movie[0].actorImg" :alt="movie[0].actorName" class="directorImage">
@@ -82,7 +78,7 @@ main {
   flex-direction: column;
 }
 .categoryText {
-
+  padding-top: 15px;
   font-weight: bold;
 }
 .movies-image {

@@ -1,4 +1,5 @@
 <template>
+  <div class="formContainer">
   <form @submit.prevent="submitForm">
     <div class="newMovieForm">
       <div class="formColumn">
@@ -67,6 +68,7 @@
       </div>
     </div>
   </form>
+</div>
 </template>
 
 <script setup>
@@ -219,6 +221,13 @@ fetchActors();
 </script>
 
 <style>
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .newMovieForm {
   display: flex;
   flex-direction: column;

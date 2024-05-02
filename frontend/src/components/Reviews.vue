@@ -41,7 +41,7 @@ const submitRatingForm = async () => {
       }),
     });
     const data = await response.json();
-    console.log('Server Response:', data); // Log server response
+    console.log('Server Response:', data);
     if (response.ok) {
       console.log(data.message);
       window.location.reload();

@@ -24,7 +24,6 @@ fetchMovies()
     <h2 class="sr-only">Movies</h2>
     <div class="movies-grid">
       <div v-for="movie in movies" :key="movie.movieId" class="movies" @click="$router.push(`/movie/${movie.movieId}`)">
-<!--       <div v-for="movie in movies" :key="movie.movieId" class="movies" @click="prova(movie.movieId)"> -->
         <div class="image-container">
           <img :src="movie.movieImg" :alt="movie.movieTitle" class="movies-image" />
         </div>
@@ -39,6 +38,8 @@ fetchMovies()
 </template>
 
 <style>
+
+
 .bg-white {
   background-color: #fff;
 }
@@ -47,6 +48,7 @@ fetchMovies()
   max-width: 1140px;
   margin: 0 auto;
   padding: 0 15px;
+  text-align: center;
 }
 
 .movies-grid {
@@ -58,10 +60,6 @@ fetchMovies()
  .movies {
   border: 2px solid white
  }
-
-.image-container {
-  overflow: hidden;
-}
 
 .movies-image {
   width: 100%;
@@ -100,4 +98,9 @@ fetchMovies()
   font-weight: bold;
 }
 
+* {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-top: 0;
+  padding: 0;
+}
 </style>
