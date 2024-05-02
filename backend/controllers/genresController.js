@@ -5,7 +5,11 @@ exports.getGenres = async (req, res) => {
   try {
     await connectionMySQL.query(sql, (error, results, fields) => {
       if (error) {
-        throw error;
+        console.log("Error 409:", error);
+        return res.status(409).json({
+          success: false,
+          error: "Something went wrong!",
+        });
       }
       res.json(results);
     });
@@ -17,12 +21,16 @@ exports.getGenres = async (req, res) => {
 };
 
 exports.getGenre = async (req, res) => {
-  const { id } = req.params;
+  const { genreId } = req.params;
   let sql = "SELECT * FROM genres WHERE genreId = ?";
   try {
     await connectionMySQL.query(sql, [id], (error, results, fields) => {
       if (error) {
-        throw error;
+        console.log("Error 409:", error);
+        return res.status(409).json({
+          success: false,
+          error: `${genreId} doesn't exists in database`,
+        });
       }
       res.json(results);
     });
@@ -33,65 +41,45 @@ exports.getGenre = async (req, res) => {
   }
 };
 
-// exports.createGenre = async (req, res) => {
-//   const { name } = req.body;
-//   if (!name || name.trim().length < 1) {
-//     return res.status(400).json({
-//       success: false,
-//       error: "Unsuccessful: The genre name is missing",
-//     });
-//   }
-//   let sql = "INSERT INTO genres (genreName) VALUES (?)";
-//   let params = [name];
-//   try {
-//     // Check if the genre already exists
-//     const existingGenre = await connectionMySQL.query(
-//       "SELECT * FROM genres WHERE genreName = ?",
-//       [name],
-//       (error, results, fields) => {
-//         if (error) {
-//           // if (error) throw error;
-//           console.log("Error:", error);
-//         }
-//         console.log("The solution is: ", results[0].solution);
-//         return res.status(409).json({
-//           success: false,
-//           error: "Genre already exists",
-//         });
-//       }
-//     );
-//     // console.log(existingGenre._connection.state);
-//     // if (existingGenre._connection.state === "disconnected") {
-//     //   return res.status(409).json({
-//     //     success: false,
-//     //     error: "Genre already exists",
-//     //   });
-//     // }
-//     await connectionMySQL.query(sql, params, (error, results, fields) => {
-//       if (error) {
-//         // if (error) throw error;
-//         console.log("Error2:", error);
-//       }
-//       return res.status(201).json({
-//         success: true,
-//         error: "",
-//         message: "Successfully added a genre!",
-//       });
-//     });
-//   } catch (error) {
-//     console.error("Error executing SQL query:", error); // Log the error for debugging
-//     return res.status(500).json({
-//       success: false,
-//       error: error.message,
-//     });
-//   }
-// };
+exports.createGenre = async (req, res) => {
+  const { genreName } = req.body;
+  if (!genreName || genreName.trim().length < 1) {
+    return res.status(400).json({
+      success: false,
+      error: "Unsuccessful: The genre name is missing",
+    });
+  }
+  let sql = "INSERT INTO genres (genreName) VALUES (?)";
+  let params = [genreName];
+  try {
+    await connectionMySQL.query(sql, params, (error, results, fields) => {
+      if (error) {
+        console.log("Error 409:", error);
+        return res.status(409).json({
+          success: false,
+          error: `${genreName} doesn't exists in database`,
+        });
+      }
+      return res.status(201).json({
+        success: true,
+        error: "",
+        message: `Successfully added ${genreName}`,
+      });
+    });
+  } catch (error) {
+    console.error("Error executing SQL query:", error); // Log the error for debugging
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
 exports.updateGenre = async (req, res) => {
-  const { id } = req.params;
-  const { name } = req.body;
-  let sql = "UPDATE directors SET directorName = ? WHERE genreId = ?";
-  let params = [id, name];
-  if (!name || name.trim().length < 1) {
+  const { genreId } = req.params;
+  const { genreName } = req.body;
+  let sql = "UPDATE genres SET genreName = ? WHERE genreId = ?";
+  let params = [genreId, genreName];
+  if (!genreName || genreName.trim().length < 1) {
     return res.status(400).json({
       success: false,
       error: "Unsuccessful: The genre name is missing",
@@ -100,12 +88,16 @@ exports.updateGenre = async (req, res) => {
   try {
     await connectionMySQL.query(sql, params, (error, results, fields) => {
       if (error) {
-        throw error;
+        console.log("Error 409:", error);
+        return res.status(409).json({
+          success: false,
+          error: `${genreName} doesn't exists in database`,
+        });
       }
       return res.status(200).json({
         success: true,
         error: "",
-        message: "Genre updated successfully!",
+        message: `${genreName} updated successfully!`,
       });
     });
   } catch (error) {
@@ -117,26 +109,30 @@ exports.updateGenre = async (req, res) => {
 };
 
 exports.deleteGenre = async (req, res) => {
-  const { id } = req.body;
+  const { genreName } = req.body;
 
-  let sql = "DELETE FROM genres WHERE genreId = ?";
+  let sql = "DELETE FROM genres WHERE genreName = ?";
 
-  if (!id) {
+  if (!genreName) {
     return res.status(400).json({
       success: false,
-      error: "Unsuccessful: You have not specified a genre id or genre name",
+      error: "Unsuccessful: You have not specified the genre name!",
     });
   }
 
   try {
-    await connectionMySQL.query(sql, [id], (error, results, fields) => {
+    await connectionMySQL.query(sql, [genreName], (error, results, fields) => {
       if (error) {
-        if (error) throw error;
+        console.log("Error 409:", error);
+        return res.status(409).json({
+          success: false,
+          error: `${genreName} doesn't exists in database!`,
+        });
       }
       return res.status(201).json({
         success: true,
         error: "",
-        message: "Successfully removed genre!",
+        message: `Successfully removed ${genreName}!`,
       });
     });
   } catch (error) {
