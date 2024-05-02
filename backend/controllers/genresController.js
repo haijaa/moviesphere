@@ -1,14 +1,14 @@
-const connectionMySQL = require("../connectionMySQL");
+const connectionMySQL = require('../connectionMySQL');
 
 exports.getGenres = async (req, res) => {
-  let sql = "SELECT * FROM genres";
+  let sql = 'SELECT * FROM genres';
   try {
     await connectionMySQL.query(sql, (error, results, fields) => {
       if (error) {
-        console.log("Error 409:", error);
+        console.log('Error 409:', error);
         return res.status(409).json({
           success: false,
-          error: "Something went wrong!",
+          error: 'Something went wrong!',
         });
       }
       res.json(results);
@@ -22,11 +22,11 @@ exports.getGenres = async (req, res) => {
 
 exports.getGenre = async (req, res) => {
   const { genreId } = req.params;
-  let sql = "SELECT * FROM genres WHERE genreId = ?";
+  let sql = 'SELECT * FROM genres WHERE genreId = ?';
   try {
     await connectionMySQL.query(sql, [id], (error, results, fields) => {
       if (error) {
-        console.log("Error 409:", error);
+        console.log('Error 409:', error);
         return res.status(409).json({
           success: false,
           error: `${genreId} doesn't exists in database`,
@@ -46,15 +46,15 @@ exports.createGenre = async (req, res) => {
   if (!genreName || genreName.trim().length < 1) {
     return res.status(400).json({
       success: false,
-      error: "Unsuccessful: The genre name is missing",
+      error: 'Unsuccessful: The genre name is missing',
     });
   }
-  let sql = "INSERT INTO genres (genreName) VALUES (?)";
+  let sql = 'INSERT INTO genres (genreName) VALUES (?)';
   let params = [genreName];
   try {
     await connectionMySQL.query(sql, params, (error, results, fields) => {
       if (error) {
-        console.log("Error 409:", error);
+        console.log('Error 409:', error);
         return res.status(409).json({
           success: false,
           error: `${genreName} doesn't exists in database`,
@@ -62,12 +62,12 @@ exports.createGenre = async (req, res) => {
       }
       return res.status(201).json({
         success: true,
-        error: "",
+        error: '',
         message: `Successfully added ${genreName}`,
       });
     });
   } catch (error) {
-    console.error("Error executing SQL query:", error); // Log the error for debugging
+    console.error('Error executing SQL query:', error); // Log the error for debugging
     return res.status(500).json({
       success: false,
       error: error.message,
@@ -77,18 +77,18 @@ exports.createGenre = async (req, res) => {
 exports.updateGenre = async (req, res) => {
   const { genreId } = req.params;
   const { genreName } = req.body;
-  let sql = "UPDATE genres SET genreName = ? WHERE genreId = ?";
+  let sql = 'UPDATE genres SET genreName = ? WHERE genreId = ?';
   let params = [genreId, genreName];
   if (!genreName || genreName.trim().length < 1) {
     return res.status(400).json({
       success: false,
-      error: "Unsuccessful: The genre name is missing",
+      error: 'Unsuccessful: The genre name is missing',
     });
   }
   try {
     await connectionMySQL.query(sql, params, (error, results, fields) => {
       if (error) {
-        console.log("Error 409:", error);
+        console.log('Error 409:', error);
         return res.status(409).json({
           success: false,
           error: `${genreName} doesn't exists in database`,
@@ -96,7 +96,7 @@ exports.updateGenre = async (req, res) => {
       }
       return res.status(200).json({
         success: true,
-        error: "",
+        error: '',
         message: `${genreName} updated successfully!`,
       });
     });
@@ -111,19 +111,19 @@ exports.updateGenre = async (req, res) => {
 exports.deleteGenre = async (req, res) => {
   const { genreName } = req.body;
 
-  let sql = "DELETE FROM genres WHERE genreName = ?";
+  let sql = 'DELETE FROM genres WHERE genreName = ?';
 
   if (!genreName) {
     return res.status(400).json({
       success: false,
-      error: "Unsuccessful: You have not specified the genre name!",
+      error: 'Unsuccessful: You have not specified the genre name!',
     });
   }
 
   try {
     await connectionMySQL.query(sql, [genreName], (error, results, fields) => {
       if (error) {
-        console.log("Error 409:", error);
+        console.log('Error 409:', error);
         return res.status(409).json({
           success: false,
           error: `${genreName} doesn't exists in database!`,
@@ -131,7 +131,7 @@ exports.deleteGenre = async (req, res) => {
       }
       return res.status(201).json({
         success: true,
-        error: "",
+        error: '',
         message: `Successfully removed ${genreName}!`,
       });
     });
