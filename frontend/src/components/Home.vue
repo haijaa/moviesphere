@@ -38,7 +38,7 @@ fetchMovies();
   </div>
 </template>
 
-<style>
+<style scoped>
 .bg-white {
   background-color: #fff;
 }
@@ -104,10 +104,10 @@ fetchMovies();
   font-weight: bold;
 }
 
-* {
+/* * {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-  margin-top: 0;
+  margin: 0;
   padding: 0;
-}
+} */
 </style>

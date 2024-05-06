@@ -47,6 +47,7 @@ a:link {
 .gradient-background {
     height: 400px;
     background: linear-gradient(to bottom left, #4f46e5, #805ad5, #a971c2);
+    margin: 0;
 }
 
 .container {

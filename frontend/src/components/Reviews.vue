@@ -57,25 +57,27 @@ const submitRatingForm = async () => {
 </script>
 <template>
   <div class="gigacontainer">
-  <h2>Users reviews</h2>
+  <h2>User reviews</h2>
 <div class="review-container" v-if="reviews.length">
 <div  v-for="review in reviews">
   <div class="review" >
-    <div >
+    <div class="authorRating">
       <h3>{{ review.author }}</h3>
-    <div>
+      <i class="fa fa-star"><span class="ratingtext">{{ review.rating }}/5</span></i>
+      <!-- <p> Rating: </p> -->
+    </div>
+    <div class="comment">
      <p>{{ review.comment }}</p>
     </div>
     <div>
-      <p> Rating: {{ review.rating }}/5</p>
-    </div>
+
   </div>
 </div>
 </div>
 </div>
 
-<div v-else>
- <p>No reviews for this movie yet :(</p>
+<div v-else class="noreviews">
+ <p>No reviews for this movie yet.</p>
  <p>Add one down here.</p>
 
 </div>
@@ -112,13 +114,15 @@ const submitRatingForm = async () => {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 20px;
 }
 .review-container {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 
 .review {
@@ -127,18 +131,50 @@ margin: 1em;
 width: 320px;
 padding-left: 20px;
 padding-right: 20px;
-
+border-radius: 10px;
+box-shadow: #454647 4px 4px;
 }
+
+.authorRating {
+  display: flex;
+justify-content: space-between;
+margin-top: 10px;
+margin-bottom: 10px;
+align-items: baseline;
+}
+
+.comment {
+  margin-bottom: 10px;
+}
+
+.fa-star {
+  display: flex;
+  font-size:24px;
+  color:orange;
+  align-items: center;
+}
+.ratingtext {
+  color: black;
+  font-size:18px;
+  margin-left: 5px;
+}
+
 
 .review-form {
   display: flex;
   flex-direction: column;
   width: 80%;
+  margin-top: 10px;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: #454647 8px 8px;
+  box-shadow: #454647 4px 4px;
   position: relative;
   background: linear-gradient(to bottom left, #4f46e5, #805ad5, #a971c2);
+}
+
+.review-form h4 {
+  margin-bottom: 5px;
+  font-size: large;
 }
 
 .formColumn {
@@ -152,7 +188,7 @@ padding-right: 20px;
   padding: 10px;
   box-sizing: border-box;
   border-radius: 5px;
-  box-shadow: #454647 8px 8px;
+  box-shadow: #454647 4px 4px;
 }
 
 .label {
@@ -167,7 +203,7 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  box-shadow: #454647 8px 8px;
+  box-shadow: #454647 4px 4px;
   width: 50%;
 }
 
@@ -175,15 +211,21 @@ button {
   margin-top: 10px;
 }
 
-@media (min-width: 400px) {
-  .review-form {
-    width: 30%;
-  }
+.noreviews {
+  margin: 20px;
+}
+
+.noreviews p {
+  padding: 0;
+  margin: 0;
 }
 
 @media (min-width: 700px) {
   .review-container {
     flex-direction: row;
+  }
+  .review-form {
+    max-width: 587px;
   }
 }
 
