@@ -45,17 +45,17 @@ fetchMoviesById();
               :alt="movie[0].directorName"
               class="directorImage"
             />
-            <p>{{ movie[0].directorName }}</p>
+            <p class="nameCast">{{ movie[0].directorName }}</p>
           </div>
 
           <div class="actor-container">
-            <p class="categoryText">Lead actor:</p>
+            <p class="categoryText">Actors:</p>
             <img
               :src="movie[0].actorImg"
               :alt="movie[0].actorName"
               class="directorImage"
             />
-            <p>{{ movie[0].actorName }}</p>
+            <p class="nameCast">{{ movie[0].actorName }}</p>
           </div>
         </div>
       </div>
@@ -103,10 +103,37 @@ main {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  align-items: flex-start;
+}
+.nameCast {
+  margin-top: 5px;
+}
+.director-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.actor-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 * {
   padding: 0;
   margin: 0;
+}
+
+@media (max-width: 720px) {
+  .provarbara {
+    flex-direction: column;
+  }
+  .movieCard-information {
+    align-items: center;
+    padding-left: 0px;
+    padding-top: 25px;
+  }
 }
 </style>
