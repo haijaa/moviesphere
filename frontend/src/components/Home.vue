@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue";
 const movies = ref([]);
 
 function fetchMovies() {
-  fetch("http://localhost:3000/movies")
+  fetch("http://localhost:3000/")
     .then((response) => response.json())
     .then((data) => {
       movies.value = data;

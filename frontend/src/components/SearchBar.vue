@@ -3,7 +3,7 @@ import router from '../router/router';
 
 
 function goHome () {
-    router.push(`/movies`)
+    router.push(`/`)
 }
 
 </script>
@@ -11,7 +11,7 @@ function goHome () {
 <template>
 <div class="gradient-background">
   <nav>
-        <RouterLink to="/movies">Home</RouterLink>
+        <RouterLink to="/">Home</RouterLink>
       </nav>
     <div class="container">
         <h1 class="title" @click="goHome()">MovieSphere</h1>
