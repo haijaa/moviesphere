@@ -23,13 +23,11 @@ fetchMovies();
           class="movies"
           @click="$router.push(`/movie/${movie.movieId}`)"
         >
-          <div class="image-container">
-            <img
+        <img
               :src="movie.movieImg"
               :alt="movie.movieTitle"
               class="movies-image"
             />
-          </div>
           <div class="movies-details">
             <h3 class="movies-name">{{ movie.movieTitle }}</h3>
             <p>{{ movie.movieDescription }}</p>
@@ -57,15 +55,22 @@ fetchMovies();
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
 }
+.movies-grid:hover {
+  cursor: pointer;
+}
 
 .movies {
   border: 2px solid white;
 }
 
+.movies:hover {
+  color: #4f46e5;
+}
+
 .movies-image {
   width: 100%;
-  height: 80%;
-  object-fit: fill;
+  height: 400px;
+  object-fit: cover;
 }
 
 .movies-details {
