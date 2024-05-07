@@ -111,7 +111,7 @@ const submitForm = async () => {
     };
 
 
-    const movieResponse = await fetch('http://localhost:3000/movies', {
+    const movieResponse = await fetch('http://localhost:3000/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ const submitForm = async () => {
 
 const fetchMovieId = async (movieTitle) => {
   try {
-    const moviesResponse = await fetch('http://localhost:3000/movies');
+    const moviesResponse = await fetch('http://localhost:3000/');
     const moviesData = await moviesResponse.json();
 
     const movie = moviesData.find(movie => movie.movieTitle === movieTitle);
@@ -279,6 +279,7 @@ const submitActor = async () => {
     }
   }
 };
+
 function fetchGenres() {
   fetch('http://localhost:3000/genres')
   .then(response => response.json())
