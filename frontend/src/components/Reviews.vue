@@ -53,8 +53,8 @@ const submitRatingForm = async () => {
   }
 };
 
-
 </script>
+
 <template>
   <div class="gigacontainer">
   <h2>User reviews</h2>
@@ -64,24 +64,19 @@ const submitRatingForm = async () => {
     <div class="authorRating">
       <h3>{{ review.author }}</h3>
       <i class="fa fa-star"><span class="ratingtext">{{ review.rating }}/5</span></i>
-      <!-- <p> Rating: </p> -->
     </div>
     <div class="comment">
      <p>{{ review.comment }}</p>
     </div>
     <div>
-
   </div>
 </div>
 </div>
 </div>
-
 <div v-else class="noreviews">
  <p>No reviews for this movie yet.</p>
  <p>Add one down here.</p>
-
 </div>
-
 
 <form @submit.prevent="submitRatingForm" class="review-form">
  <h4> What do you think of this movie?</h4>

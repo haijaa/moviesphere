@@ -78,7 +78,7 @@ a:link {
     border-radius: 0.5rem;
     width: 100%;
     max-width: 30rem;
-    box-shadow: #454647 15px 15px;
+    box-shadow: #454647 8px 8px;
 }
 
 .input-field {

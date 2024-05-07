@@ -44,16 +44,18 @@ fetchMovies();
 }
 
 .container {
-  max-width: 1140px;
+  max-width: 950px;
   margin: 0 auto;
   padding: 0 15px;
   text-align: center;
+  margin-top: 40px;
 }
 
 .movies-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
+  margin-bottom: 60px;
 }
 .movies-grid:hover {
   cursor: pointer;
