@@ -5,10 +5,10 @@ exports.linkActorToMovie = async (req, res) => {
   let sql =
     "INSERT INTO movieActors (movieActorMovieId, movieActorActorId) VALUES (?, ?)";
   let params = [movieActorMovieId, movieActorActorId];
-  if (!movieActorMovieId && !movieActorActorId) {
+  if (!movieActorActorId) {
     return res.status(400).json({
       success: false,
-      error: "You need to enter both fields.",
+      error: "You need to enter a actor.",
     });
   }
   try {
